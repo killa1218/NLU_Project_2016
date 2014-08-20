@@ -54,9 +54,9 @@ class Variable
 
     #Attr_verbs = %w/say accord note add believe think argue contend recall tell/
 
-    PDTB_DIR    = "/home/linzihen/corpora/PDTB/converted-data/"
-    PTB_DIR     = "/home/linzihen/corpora/PTB/combined/wsj/"
-    PTB_DIR2    = "/home/linzihen/corpora/PTB/charniak/wsj/"
-    DTREE_DIR   = "/home/linzihen/corpora/PTB/dtree/wsj"
-    DTREE_DIR2  = "/home/linzihen/corpora/PTB/dtree2/wsj"
+    PDTB_DIR    = "#{File.dirname(__FILE__)}/../corpora/PDTB/converted-data/"
+    PTB_DIR     = "#{File.dirname(__FILE__)}/../corpora/PTB/combined/wsj/"
+    PTB_DIR2    = "#{File.dirname(__FILE__)}/../corpora/PTB/charniak/wsj/"
+    DTREE_DIR   = "#{File.dirname(__FILE__)}/../corpora/PTB/dtree/wsj"
+    DTREE_DIR2  = "#{File.dirname(__FILE__)}/../corpora/PTB/dtree2/wsj"
 end
