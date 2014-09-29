@@ -223,20 +223,20 @@ class Parser
   end
 
   # parse a PTB file
-  # def parse_ptb_file(article_id, use_tmp_files=false)
-  #   $error_propagate = true
-  #   $with_preprocess = false
-  #   section_id = article_id[0,2]
-  #   filename = 'wsj_'+article_id+'.pipe'
-  #   parsed_filename = filename.sub('.pipe', '.mrg')
-  #   dtree_filename = filename.sub('.pipe', '.dtree')
-  #   return nil if not File.exist?(Variable::PDTB_DIR+"/"+section_id+"/"+filename)
-  #   article = Article.new(filename, 
-  #                         Variable::PDTB_DIR+"/"+section_id+"/"+filename,
-  #                         Variable::PTB_DIR+"/"+section_id+"/"+parsed_filename, 
-  #                         Variable::DTREE_DIR+"/"+section_id+"/"+dtree_filename)
-  #   [article, parse(article, use_tmp_files)]
-  # end
+  def parse_ptb_file(article_id, use_tmp_files=false)
+    $error_propagate = true
+    $with_preprocess = false
+    section_id = article_id[0,2]
+    filename = 'wsj_'+article_id+'.pipe'
+    parsed_filename = filename.sub('.pipe', '.mrg')
+    dtree_filename = filename.sub('.pipe', '.dtree')
+    return nil if not File.exist?(Variable::PDTB_DIR+"/"+section_id+"/"+filename)
+    article = Article.new(filename, 
+                          Variable::PDTB_DIR+"/"+section_id+"/"+filename,
+                          Variable::PTB_DIR+"/"+section_id+"/"+parsed_filename, 
+                          Variable::DTREE_DIR+"/"+section_id+"/"+dtree_filename)
+    [article, parse(article, use_tmp_files, true)]
+  end
 
   # parse an article into its discourse representation
   def parse(article, use_set_model=false, get_parsed=false)
