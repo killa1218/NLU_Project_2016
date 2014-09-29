@@ -15,7 +15,13 @@ class Relation
     def initialize(raw_text, id)
         @raw_text = raw_text
         @id = id
-        @col = raw_text.split(/\|/, -1)
+        begin
+          @col = raw_text.split(/\|/, -1)
+        rescue StandardError => e
+          puts e.message
+          puts e.backtrace.inspect
+          puts "RAW TEXT: #{raw_text}"
+        end
         @word_pairs = Hash.new(nil)
         @arg1_sid = -1
         @arg2_sid = -1
