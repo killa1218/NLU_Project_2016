@@ -236,6 +236,7 @@ class Article
     nil
   end
 
+  # Unused function
   def find_DSOZ
     in_DSOZ = false
     new_DSOZ = nil
@@ -268,6 +269,7 @@ class Article
     [all_DSOZ, sent2DSOZ]
   end
 
+  # Unused function
   def find_POZ
     in_POZ = false
     new_POZ = nil
@@ -397,6 +399,7 @@ class Article
     #exit
   end
 
+  # Unused function
   def process_attribution_clauses(which=nil)
     if which != 'parse'
       mark_in_relation        if @read_parse and @process_attr
@@ -427,6 +430,7 @@ class Article
     @nonexp_relations_p.push(relation)
   end
 
+  # Unused function
   def split_paragraphs(pos_file, to_file)
     text = File.readlines(pos_file).join
     text = text.gsub(/\(/, '-LRB-').gsub(/\)/, '-RRB-').gsub(/\{/, '-LCB-').gsub(/\}/, '-RCB-')
@@ -719,6 +723,7 @@ class Article
     0
   end
 
+  # Unused function
   def find_head_words(leaves, remove_attr_verbs=true)
     if not remove_attr_verbs
       return find_common_nodes(leaves).map {|n| n.head_word_ptr} .reject {|n| n == nil}
@@ -1041,6 +1046,7 @@ class Article
     }
   end
 
+  # Unused function
   def print_edu_with_index(idx)
     curr = @edus[idx]
     (@edu_lengths[idx] - 1).times {
@@ -1427,6 +1433,7 @@ class Article
     ary << [rel_ptr, tuples]
   end
 
+  # Unused function
   def get_plain_text(brk="\n")
     text = ''
     @paragraphs.each_index {|i|
@@ -1441,6 +1448,7 @@ class Article
     text
   end
 
+  # Unused function
   def get_rel_sequence
     arr = Array.new
     @exp_relations_p.each_index do |i|
@@ -1458,6 +1466,7 @@ class Article
     arr.sort {|a,b| a[3] <=> b[3]} .map {|a| a[0]+'.'+a[1]+'.'+a[2].to_s} 
   end
 
+  # Unused function
   def get_rel_sequence_for_gs
     arr = Array.new
     @exp_relations.each_index do |i|
@@ -1485,6 +1494,7 @@ class Article
     leaves[leaves.size / 2].article_order
   end
 
+  # Unused function
   def get_sorted_rel_arg
     arr = Array.new
     @exp_relations_p.each_index do |i|
@@ -1502,6 +1512,7 @@ class Article
     arr.sort {|a,b| a[3] <=> b[3]} .map {|a| a[0]+'.'+a[1]+'.'+a[2].to_s+' '+a[3].to_s+' '+a[4].join(' ')} .join(' ### ')
   end
 
+  # Unused function
   def get_sent_term_types
     grid = Hash.new {|h,sid| h[sid] = Hash.new {|h1,t| h1[t] = Hash.new(0)}}
     @exp_relations_p.each_index do |i|
@@ -1536,6 +1547,7 @@ class Article
     PP.pp(grid, "").gsub(/\n/, ' ').gsub(/ +/, ' ').strip
   end
 
+  # Unused function
   def get_sent_term_types_for_gs
     grid = Hash.new {|h,sid| h[sid] = Hash.new {|h1,t| h1[t] = Hash.new(0)}}
     @exp_relations.each_index do |i|
@@ -1573,6 +1585,7 @@ class Article
     PP.pp(grid, "").gsub(/\n/, ' ').gsub(/ +/, ' ').strip
   end
 
+  # Unused function
   def get_event_trans(intra_inter=false, all_word=false)
     trans = Array.new
     @exp_relations_p.each_index do |i|

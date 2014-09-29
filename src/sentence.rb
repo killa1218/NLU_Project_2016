@@ -514,6 +514,7 @@ class Sentence
     str.strip
   end
 
+  # Returns the sentence itself
   def text
     curr = @parsed_tree.root.first_leaf
     str = ''
@@ -534,10 +535,12 @@ class Sentence
     str.strip
   end
 
+  # Returns the sentence labeled with its discourse relations
   def text3
     @leaves.map {|l| l.print_value} .join(' ')
   end
 
+  # Returns the sentence's discourse relation, if any
   def text4
     disc_conn_leaves = Array.new
     @disc_connectives_p.each do |disc_conn|
