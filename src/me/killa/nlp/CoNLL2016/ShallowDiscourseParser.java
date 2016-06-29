@@ -17,8 +17,8 @@ import java.util.Queue;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-import net.sf.json.JSONSerializer;
 import sg.edu.nus.comp.pdtb.parser.ArgExtComp;
 import sg.edu.nus.comp.pdtb.parser.ArgPosComp;
 import sg.edu.nus.comp.pdtb.parser.Component;
@@ -57,6 +57,7 @@ public class ShallowDiscourseParser {
 								log.info("File \"" + file.getName() + ".txt\" generating...");
 								txtFile.createNewFile();
 								
+								@SuppressWarnings("resource")
 								BufferedReader bfr = new BufferedReader(new FileReader(file));
 								BufferedWriter bfw = new BufferedWriter(new FileWriter(txtFile));
 								String buffer = null;
@@ -83,7 +84,7 @@ public class ShallowDiscourseParser {
 			}
 			
 /*******************wsj_xxxx文件格式转换, 将文件后缀加上.txt, 然后去除第一行的.START*****************************/
-			File inputFile = new File(args[0]);
+			File inputFile = new File("data/raw");
 			if (inputFile.exists()) {
 				if (inputFile.isDirectory()) {
 					doBatchParsing(inputFile);
@@ -98,7 +99,116 @@ public class ShallowDiscourseParser {
 			}
 /******************将结果文件.pipe文件转换成JSON格式的文件***************************************************/
 
+			File outputDir = new File("data/raw/output");
 			
+			if(outputDir.isDirectory()){
+				int ID = 35708;
+				File[] files = outputDir.listFiles();
+				File outputFile = new File("data/pdtb-output.json");
+				
+				if(outputFile.exists()){
+					log.info("Output file exists, skipping...");
+				}
+				else{
+					outputFile.createNewFile();
+					
+					BufferedWriter bfw = new BufferedWriter(new FileWriter(outputFile));
+					
+					for(File file : files){
+						if(file.isFile() && file.getName().endsWith(".pipe")){
+							log.info("Analyzing file \"" + file.getName() + "\"...");
+							boolean hasImplict = false;
+							@SuppressWarnings("resource")
+							BufferedReader bfr = new BufferedReader(new FileReader(file));
+							String result = bfr.readLine();
+							JSONObject jo = new JSONObject();
+							
+							JSONObject arg1 = new JSONObject();
+							
+							arg1.element("CharacterSpanList", new JSONArray());
+							arg1.element("RawText", "");
+							arg1.element("TokenList", new JSONArray());
+							
+							JSONObject arg2 = new JSONObject();
+							
+							arg2.element("CharacterSpanList", new JSONArray());
+							arg2.element("RawText", "");
+							arg2.element("TokenList", new JSONArray());
+							
+							JSONObject connective = new JSONObject();
+							
+							connective.element("CharacterSpanList", new JSONArray());
+							connective.element("RawText", "");
+							
+							jo.element("Arg1", arg1);
+							jo.element("Arg2", arg2);
+							jo.element("Connective", connective);
+							jo.element("DocID", file.getName().split("\\.")[0]);
+							jo.element("ID", ID);
+							jo.element("Sense", new JSONArray());
+							jo.element("Type", "");
+							
+							while(result != null){
+								String[] results = result.split("\\|");
+								
+								if(results[0].equals("Implicit")){
+									hasImplict = true;
+									jo.element("Type", results[0]);
+									jo.accumulate("Sense", results[11]);
+									
+									String[] arg1CharSpanList = results[22].split(";");
+									
+									for(String span : arg1CharSpanList){
+										if(!span.isEmpty()){
+											JSONArray ja = new JSONArray();
+											String[] spans = span.split("\\.\\.");
+											
+											ja.add(Integer.parseInt(spans[0]));
+											ja.add(Integer.parseInt(spans[1]));
+											
+											((JSONObject)jo.get("Arg1")).accumulate("CharacterSpanList", ja);
+										}
+									}
+									
+									((JSONObject)jo.get("Arg1")).element("RawText", results[24]);
+									
+									
+									String[] arg2CharSpanList = results[32].split(";");
+									
+									log.info(results[32]);
+									for(String span : arg2CharSpanList){
+										if(!span.isEmpty()){
+											JSONArray ja = new JSONArray();
+											String[] spans = span.split("\\.\\.");
+
+											ja.add(Integer.parseInt(spans[0]));
+											ja.add(Integer.parseInt(spans[1]));
+											
+											((JSONObject)jo.get("Arg2")).accumulate("CharacterSpanList", ja);
+										}
+									}
+									
+									((JSONObject)jo.get("Arg2")).element("RawText", results[34]);
+									
+								}
+								result = bfr.readLine();
+							}
+							
+							if(hasImplict){
+								ID ++;
+								
+								bfw.append(jo.toString());
+								bfw.newLine();
+							}
+						}
+					}
+					
+					bfw.close();
+				}
+			}
+			else{
+				log.error("Output is not a directory!");
+			}
 
 /******************将结果文件.pipe文件转换成JSON格式的文件***************************************************/
 		}
