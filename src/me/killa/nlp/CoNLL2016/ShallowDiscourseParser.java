@@ -35,18 +35,14 @@ public class ShallowDiscourseParser {
 	private static Logger log = LogManager.getLogger(PdtbParser.class.toString());
 
 	public static void main(String[] args) throws IOException {
-//		JSONSerializer js = new JSONSerializer();
-//		JSONObject jo = new JSONObject();
-//
-//		BufferedReader bfr = new BufferedReader(new FileReader(new File("data/pdtb-parses.json")));
-//
-//		String str = bfr.readLine();
-//
-//		System.out.println(js.toJSON(str).isEmpty());
-
 		if (args.length < 1) {
 			log.error("Please supply path to a text file or directory containging .txt files. ");
 		} else {
+/*******************wsj_xxxx文件格式转换, 将文件后缀加上.txt, 然后去除第一行的.START*****************************/
+			
+			
+			
+/*******************wsj_xxxx文件格式转换, 将文件后缀加上.txt, 然后去除第一行的.START*****************************/
 			File inputFile = new File(args[0]);
 			if (inputFile.exists()) {
 				if (inputFile.isDirectory()) {
@@ -60,6 +56,11 @@ public class ShallowDiscourseParser {
 			} else {
 				log.error("File " + inputFile + " does not exists. ");
 			}
+/******************将结果文件.pipe文件转换成JSON格式的文件***************************************************/
+			
+			
+			
+/******************将结果文件.pipe文件转换成JSON格式的文件***************************************************/
 		}
 	}
 
