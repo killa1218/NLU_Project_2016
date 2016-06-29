@@ -3,6 +3,7 @@ package me.killa.nlp.CoNLL2016;
 import static sg.edu.nus.comp.pdtb.util.Settings.OUTPUT_FOLDER_NAME;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -39,8 +40,47 @@ public class ShallowDiscourseParser {
 			log.error("Please supply path to a text file or directory containging .txt files. ");
 		} else {
 /*******************wsj_xxxx文件格式转换, 将文件后缀加上.txt, 然后去除第一行的.START*****************************/
+
+			File rawDataDir = new File("data/raw");
 			
-			
+			if(rawDataDir.exists()){
+				if(rawDataDir.isDirectory()){
+					File[] files = rawDataDir.listFiles();
+					
+					log.info("Start to tranfer file format...");
+					
+					for(File file : files){
+						if(file.isFile() && !file.getName().endsWith(".txt")){
+							File txtFile = new File(file.getPath() + ".txt");
+							
+							if(!txtFile.exists()){
+								log.info("File \"" + file.getName() + ".txt\" generating...");
+								txtFile.createNewFile();
+								
+								BufferedReader bfr = new BufferedReader(new FileReader(file));
+								BufferedWriter bfw = new BufferedWriter(new FileWriter(txtFile));
+								String buffer = null;
+								
+								buffer = bfr.readLine();
+								buffer = bfr.readLine();
+								
+								while(buffer != null){
+									buffer = bfr.readLine();
+									if(buffer != null){
+										bfw.append(buffer);
+										bfw.newLine();
+									}
+								}
+								
+								bfw.close();
+							}
+							else{
+								log.info("File \"" + file.getName() + ".txt\" exists, skipping...");
+							}
+						}
+					}
+				}
+			}
 			
 /*******************wsj_xxxx文件格式转换, 将文件后缀加上.txt, 然后去除第一行的.START*****************************/
 			File inputFile = new File(args[0]);
@@ -57,9 +97,9 @@ public class ShallowDiscourseParser {
 				log.error("File " + inputFile + " does not exists. ");
 			}
 /******************将结果文件.pipe文件转换成JSON格式的文件***************************************************/
+
 			
-			
-			
+
 /******************将结果文件.pipe文件转换成JSON格式的文件***************************************************/
 		}
 	}
