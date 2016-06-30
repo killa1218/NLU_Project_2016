@@ -30,7 +30,7 @@ wsj files from group 22. All the data are given in two formats: raw text and jso
 
 
 ## Method
-In the reference paper offered by this project, I found a project named [pdtb-parser](https://github.com/WING-NUS/pdtb-parser) useful.[2] So I forked his code and do my project on this forked one. The project used a library named [PDTB(Penn Discourse Treebank)](https://www.seas.upenn.edu/~pdtb/)[2].
+In the reference paper offered by this project, I found a project named [pdtb-parser](https://github.com/WING-NUS/pdtb-parser) useful.[2] So I forked his code and do my project on this [forked one](https://github.com/killa1218/NLU_Project_2016). The project used a library named [PDTB(Penn Discourse Treebank)](https://www.seas.upenn.edu/~pdtb/)[2].
 
 ### Training
 During analyzing the training code of `pdtb-parser`, I found that the training data it used is exactly the training data that we need to use. The only difference is the format of files. So we can use the trained model immediately.
