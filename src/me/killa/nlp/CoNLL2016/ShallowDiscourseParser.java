@@ -168,7 +168,6 @@ public class ShallowDiscourseParser {
 
 								String[] arg2CharSpanList = results[32].split(";");
 
-								log.info(results[32]);
 								for(String span : arg2CharSpanList){
 									if(!span.isEmpty()){
 										JSONArray ja = new JSONArray();
