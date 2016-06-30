@@ -40,6 +40,8 @@ I analyzed the code of `pdtb-parser`, understood the usage of his annotation com
 
 Before annotation, I need to transfer the format of raw text files into what the system needs. And after annotation, I need to change the format of output files into the required format.
 
+The final output file is `data/output.json`.
+
 Here is the core code of my implementation:
 
 ``` java
