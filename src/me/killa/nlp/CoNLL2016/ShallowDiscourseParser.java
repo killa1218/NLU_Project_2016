@@ -39,7 +39,6 @@ public class ShallowDiscourseParser {
 		if (args.length < 1) {
 			log.error("Please supply path to a text file or directory containging .txt files. ");
 		} else {
-/*******************wsj_xxxx文件格式转换, 将文件后缀加上.txt, 然后去除第一行的.START*****************************/
 
 			File rawDataDir = new File("data/raw");
 			
@@ -83,7 +82,6 @@ public class ShallowDiscourseParser {
 				}
 			}
 			
-/*******************wsj_xxxx文件格式转换, 将文件后缀加上.txt, 然后去除第一行的.START*****************************/
 			File inputFile = new File("data/raw");
 			if (inputFile.exists()) {
 				if (inputFile.isDirectory()) {
@@ -97,14 +95,13 @@ public class ShallowDiscourseParser {
 			} else {
 				log.error("File " + inputFile + " does not exists. ");
 			}
-/******************将结果文件.pipe文件转换成JSON格式的文件***************************************************/
 
 			File outputDir = new File("data/raw/output");
 			
 			if(outputDir.isDirectory()){
 				int ID = 35708;
 				File[] files = outputDir.listFiles();
-				File outputFile = new File("data/pdtb-output.json");
+				File outputFile = new File("data/output.json");
 				
 				if(outputFile.exists()){
 					log.info("Output file exists, skipping...");
@@ -210,7 +207,6 @@ public class ShallowDiscourseParser {
 				log.error("Output is not a directory!");
 			}
 
-/******************将结果文件.pipe文件转换成JSON格式的文件***************************************************/
 		}
 	}
 
